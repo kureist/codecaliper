@@ -1,9 +1,21 @@
 annotator rows: 121 (paper reports 120); snippets: 100
+  distinct ids 121/121; distinct rating vectors 121/121; rows out of range or short 0; per-row rating sd 0.544 to 1.455
 recomputed means match scores.csv: True
 full-archive split at 3.14: 59 high / 41 low
 leave-one-row-out: max label flips over any single omitted row = 0; rows causing any flip = 0; splits observed = [(59, 41)]
 Fig. 9 sign agreement: 21 of 24 with all rows; over the 121 single-row omissions the count spans [21, 21]
 features whose agreement status changes under any omission: none
+Figure 5 reproduction, Gaussian density over the per-snippet means:
+  window 0.15: modes ['2.81', '3.86'], troughs ['3.14']
+  window 0.20: modes ['2.82', '3.81'], troughs ['3.16']
+  window 0.25: modes ['2.85', '3.77'], troughs ['3.15']
+  window 0.30: modes ['3.73'], unimodal, no trough
+  window 0.80: modes ['3.35'], unimodal, no trough
+  the paper's stated window, 0.8, yields no trough; the bimodal structure it describes appears at 0.15 to 0.25, and its trough reproduces the published cutoff 3.14
+  split at 3.14 under the mean   aggregation: 59/41, f-measure of always predicting the majority 0.742
+  split at 3.14 under the median aggregation: 45/55, f-measure of always predicting the majority 0.710
+  split at 3.14 under the mode   aggregation: 52/48, f-measure of always predicting the majority 0.684
+  TSE 2010 section 5 states 0.67 for that trivial classifier, which corresponds to a 50/50 split; no aggregation of these rows at this cutoff reproduces it
 determinate features (bootstrap interval excludes zero, 500 replicates, seed 0): 18 of 24; agreement 17 of 18 against a constant-negative null of 15
 leave-one-row-out over the determinate set: size spans [18, 18], agreement spans [17, 17], null spans [15, 15]
 features whose determinate membership changes under any omission: none

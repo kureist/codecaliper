@@ -25,7 +25,9 @@ single-row omissions, and no feature's agreement status changes.
 from __future__ import annotations
 
 import csv
+import math
 import random
+import statistics
 import sys
 from pathlib import Path
 
@@ -54,7 +56,8 @@ def main() -> int:
             return 1
 
     with ORACLE.open(newline="", encoding="utf-8") as f:
-        rows = [[int(x) for x in r[2:]] for r in csv.reader(f)]
+        raw_rows = list(csv.reader(f))
+    rows = [[int(x) for x in r[2:]] for r in raw_rows]
     n_ann = len(rows)
     n_snip = len(rows[0])
     if any(len(r) != n_snip for r in rows):
@@ -84,7 +87,17 @@ def main() -> int:
         rows_with_flips += 1 if flips else 0
         splits.add((sum(labels), n_snip - sum(labels)))
 
+    # What the extra row is NOT: the archive carries no duplicate and no
+    # degenerate response, so a reply to the dataset author need not ask.
+    ids = [r[0] for r in raw_rows]
+    vectors = {tuple(r) for r in rows}
+    sds = [statistics.pstdev([float(x) for x in r]) for r in rows]
+    bad = [i for i, r in enumerate(rows)
+           if len(r) != n_snip or any(x < 1 or x > 5 for x in r)]
     print(f"annotator rows: {n_ann} (paper reports 120); snippets: {n_snip}")
+    print(f"  distinct ids {len(set(ids))}/{n_ann}; distinct rating vectors "
+          f"{len(vectors)}/{n_ann}; rows out of range or short {len(bad)}; "
+          f"per-row rating sd {min(sds):.3f} to {max(sds):.3f}")
     print(f"recomputed means match scores.csv: {not mismatched}"
           + (f" (first mismatches: {mismatched[:5]})" if mismatched else ""))
     print(f"full-archive split at {PAPER_CUTOFF}: {n_high} high / "
@@ -157,6 +170,47 @@ def main() -> int:
           f"[{min(counts)}, {max(counts)}]")
     print(f"features whose agreement status changes under any omission: "
           f"{sorted(unstable) if unstable else 'none'}")
+
+    # --- the 3.14 cutoff's own provenance -----------------------------------
+    # TSE 2010 section 4.1 takes the label cutoff from "the natural cutoff from
+    # the bimodal distribution in Figure 5", captioned "Distribution of the
+    # average readability scores across all the snippets ... a probability-
+    # density representation of the distribution with a window size of 0.8".
+    # Reproducing that structure from these 121 rows is a stronger faithfulness
+    # check than adopting the number: it tests the construction, not the value.
+    def density(x: float, data: list[float], h: float) -> float:
+        return sum(math.exp(-0.5 * ((x - d) / h) ** 2)
+                   for d in data) / (len(data) * h * math.sqrt(2 * math.pi))
+
+    grid = [1.0 + 0.005 * i for i in range(801)]
+    print("Figure 5 reproduction, Gaussian density over the per-snippet means:")
+    for h in (0.15, 0.20, 0.25, 0.30, 0.80):
+        d = [density(x, means_full, h) for x in grid]
+        modes = [grid[i] for i in range(1, 800) if d[i] > d[i - 1] and d[i] > d[i + 1]]
+        troughs = [grid[i] for i in range(1, 800) if d[i] < d[i - 1] and d[i] < d[i + 1]]
+        shape = (f"troughs {[f'{x:.2f}' for x in troughs]}" if troughs
+                 else "unimodal, no trough")
+        print(f"  window {h:.2f}: modes {[f'{x:.2f}' for x in modes]}, {shape}")
+    print(f"  the paper's stated window, 0.8, yields no trough; the bimodal "
+          f"structure it describes appears at 0.15 to 0.25, and its trough "
+          f"reproduces the published cutoff {PAPER_CUTOFF}")
+
+    # The one published quantity these labels do NOT reproduce, stated plainly.
+    def f1_majority(share: float) -> float:
+        return 2 * share / (1 + share)
+
+    for name, agg in (("mean", means_full),
+                      ("median", [statistics.median([rows[a][s] for a in range(n_ann)])
+                                  for s in range(n_snip)]),
+                      ("mode", [statistics.mode([rows[a][s] for a in range(n_ann)])
+                                for s in range(n_snip)])):
+        hi = sum(1 for v in agg if v >= PAPER_CUTOFF)
+        print(f"  split at {PAPER_CUTOFF} under the {name:6s} aggregation: "
+              f"{hi}/{n_snip - hi}, f-measure of always predicting the majority "
+              f"{f1_majority(max(hi, n_snip - hi) / n_snip):.3f}")
+    print("  TSE 2010 section 5 states 0.67 for that trivial classifier, which "
+          "corresponds to a 50/50 split; no aggregation of these rows at this "
+          "cutoff reproduces it")
 
     base_det = determinate(means_full)
     def summarise(det: dict[str, tuple[bool, bool]]) -> tuple[int, int, int]:

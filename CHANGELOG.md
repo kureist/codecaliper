@@ -55,6 +55,18 @@ three versions, not one:
   one quantity permuted as blocks. `annotator_sensitivity.py` bounds the
   determinate set that restriction depends on: over all 121 leave-one-row-out
   omissions its membership never changes and its agreement holds.
+- `annotator_sensitivity.py` reproduces the construction behind the label
+  cutoff instead of adopting the number. Forming a Gaussian density of the
+  per-snippet means over the archived annotator matrix gives a bimodal
+  distribution with modes near 2.81 and 3.86 and a trough at 3.14, the published
+  cutoff, which checks the annotator matrix, the aggregation and the cutoff
+  against each other. The caption's stated window of 0.8 yields no trough; the
+  structure appears between 0.15 and 0.25. The probe also records what the
+  121-versus-120 row discrepancy is not: 121 distinct ids, 121 distinct rating
+  vectors, no degenerate or out-of-range row, per-row rating sd 0.544 to 1.455.
+  One published quantity does not reproduce, and the probe says so: the
+  trivial-classifier f-measure of 0.67 implies an even split where these rows
+  give 59/41 at 0.742, and neither median nor modal aggregation lands on it.
 - Intervals resample snippets rather than folds. `train.py` records the
   accuracy interval over the 100 snippets' out-of-fold predictions,
   [0.740, 0.890], beside the fold-level [0.770, 0.870]. The arbitration's
