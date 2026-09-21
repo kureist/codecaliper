@@ -82,9 +82,11 @@ No permission has been sought or granted for this corpus, and no explicit data
 license is published for it. It is publicly downloadable from its authors'
 replication page (the `url` above). This project therefore only FETCHES it at
 run time into the gitignored cache/ and publishes AGGREGATE / DERIVED results
-(the cross-corpus parse rates recorded in validation/breadth/results.txt). Not
-one byte of it is redistributed here, and nothing in this repository should be
-read as a claim that it may be.
+(the cross-corpus parse rates recorded in validation/breadth/results.txt, and
+the score, verdict and rating-correlation aggregates recorded in
+validation/audit/policy_corner_results.txt and indentation_sweep_results.txt).
+Not one byte of it is redistributed here, and nothing in this repository should
+be read as a claim that it may be.
 """
 
 [datasets.dorn2012]

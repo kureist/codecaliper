@@ -8,6 +8,13 @@ score changes when leading tabs are expanded to eight spaces: 151 of 200 methods
   four columns, cut 0.4: 12 of 200 methods change class (4 to readable, 8 to unreadable)
   four columns, cut 0.5: 10 of 200 methods change class (2 to readable, 8 to unreadable)
   four columns, cut 0.6: 11 of 200 methods change class (3 to readable, 8 to unreadable)
+  |delta| under eight columns: median 0.0302, 90th percentile 0.1326
+  eight columns, cut 0.4: 11 of the 20 flips lie within 0.05 of the cut, where 26 of 200 scores sit
+  eight columns, cut 0.4: 17 of the 20 flips lie within 0.10 of the cut, where 45 of 200 scores sit
+  eight columns, cut 0.5: 3 of the 11 flips lie within 0.05 of the cut, where 22 of 200 scores sit
+  eight columns, cut 0.5: 8 of the 11 flips lie within 0.10 of the cut, where 44 of 200 scores sit
+  eight columns, cut 0.6: 6 of the 14 flips lie within 0.05 of the cut, where 23 of 200 scores sit
+  eight columns, cut 0.6: 13 of the 14 flips lie within 0.10 of the cut, where 44 of 200 scores sit
 score against mean human rating, 200 methods (Dataset/scores.csv, mean of the evaluator rows):
   as distributed (tabs count nothing)    Spearman +0.6034
   tabs expanded to eight columns         Spearman +0.6003

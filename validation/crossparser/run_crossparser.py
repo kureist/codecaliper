@@ -155,6 +155,40 @@ def main() -> int:
           f"{clean([results['javaparser']['as_written'], jp_classbody, jp_block]):3d}/100")
     print("reference, tree-sitter-java 0.23.5 (the instrument): as written 27, "
           "scaffold 29, brace-balanced 84, balanced+scaffold 94")
+
+    # Agreement at the SNIPPET level, not only in counts: do the front ends
+    # accept the same 27 to 29 snippets, or merely the same number of them?
+    # The instrument's own verdicts are computed here over the byte-identical
+    # variants, so the comparison is set against set.
+    import codecaliper
+
+    def ts_clean(variant: str) -> set[int]:
+        out: set[int] = set()
+        for p in sorted((VARIANTS / variant).glob("*.java")):
+            text = p.read_text(encoding="utf-8")
+            if codecaliper.measure(text, language="java").parse_ok:
+                out.add(int(p.stem))
+        return out
+
+    def clean_set(*errmaps: dict[int, int]) -> set[int]:
+        return {i for i in ids if any(m[i] == 0 for m in errmaps)}
+
+    ts_aw = ts_clean("as_written")
+    ts_sc = ts_aw | ts_clean("scaffold_class") | ts_clean("scaffold_class_method")
+    jc = results["javac"]
+    jp = results["javaparser"]
+    jc_sc = clean_set(jc["as_written"], jc["scaffold_class"], jc["scaffold_class_method"])
+    jp_sc = clean_set(jp["as_written"], jp["scaffold_class"], jp["scaffold_class_method"])
+    jp_any = clean_set(jp["as_written"], jp_classbody, jp_block)
+    print("snippet-level agreement (the same snippets, not only the same counts):")
+    print(f"  javac scaffold-allowed set == tree-sitter as-written set: "
+          f"{jc_sc == ts_aw} ({len(jc_sc & ts_aw)} shared of {len(ts_aw)})")
+    print(f"  javaparser scaffold-allowed set == tree-sitter scaffold set: "
+          f"{jp_sc == ts_sc} ({len(jp_sc & ts_sc)} shared of {len(ts_sc)})")
+    print(f"  javaparser any-entry set == tree-sitter scaffold set: "
+          f"{jp_any == ts_sc} ({len(jp_any & ts_sc)} shared of {len(ts_sc)})")
+    print(f"  the scaffold's gain over tree-sitter as written: {sorted(ts_sc - ts_aw)}; "
+          f"javaparser scaffold over javac scaffold: {sorted(jp_sc - jc_sc)}")
     return 0
 
 

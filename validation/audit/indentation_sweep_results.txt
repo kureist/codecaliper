@@ -1,0 +1,13 @@
+corpus: 200 rated methods of the Scalabrino et al. archive, 151 tab-indented; rating = mean of the evaluator rows (Dataset/scores.csv), the vector the corner re-run also uses
+Spearman against the mean rating, by columns per tab (raw text, no scaffold, all lines):
+  tab=0: avg_indentation +0.0332   max_indentation +0.0016   <- the tool's own reading (tabs count nothing)
+  tab=1: avg_indentation -0.0792   max_indentation -0.1273
+  tab=2: avg_indentation -0.1213   max_indentation -0.1831
+  tab=4: avg_indentation -0.2333   max_indentation -0.2808
+  tab=8: avg_indentation -0.2466   max_indentation -0.3280
+  paired avg_indentation: rho(tab=8) - rho(tab=0) = -0.2798, 95% CI [-0.4979, -0.0410] (2000 resamples, seed 0)
+  paired avg_indentation: rho(tab=4) - rho(tab=0) = -0.2665, 95% CI [-0.4139, -0.1156] (2000 resamples, seed 0)
+  paired avg_indentation: rho(tab=8) - rho(tab=4) = -0.0133, 95% CI [-0.1260, +0.1013] (2000 resamples, seed 0)
+  paired max_indentation: rho(tab=8) - rho(tab=0) = -0.3297, 95% CI [-0.5240, -0.1203] (2000 resamples, seed 0)
+  paired max_indentation: rho(tab=4) - rho(tab=0) = -0.2824, 95% CI [-0.4348, -0.1352] (2000 resamples, seed 0)
+  paired max_indentation: rho(tab=8) - rho(tab=4) = -0.0472, 95% CI [-0.1332, +0.0425] (2000 resamples, seed 0)

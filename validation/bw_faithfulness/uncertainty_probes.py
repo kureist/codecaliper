@@ -259,6 +259,22 @@ def main() -> int:
     print(f"paired tab contrast, avg_indentation, fallback_on: "
           f"delta rho (tab8 - tab1) = {d_full:+.4f}, 95% CI [{lo:+.4f}, {hi:+.4f}]")
 
+    # The same contrast at four columns, the original tool's own convention.
+    # In a paired design the informative comparison is each width against the
+    # incumbent, not the overlap of marginal intervals; the four-column
+    # contrast is the one the sign-preserving class's other first-party member
+    # makes.
+    a4 = [indent[i][4][0] for i in ids]
+
+    def delta4(idx: list[int]) -> float:
+        return (stats.spearman([a4[j] for j in idx], [means[j] for j in idx])
+                - stats.spearman([a1[j] for j in idx], [means[j] for j in idx]))
+
+    d4_full = stats.spearman(a4, means) - stats.spearman(a1, means)
+    lo4, hi4 = boot_ci(delta4, n)
+    print(f"paired tab contrast, avg_indentation, fallback_on: "
+          f"delta rho (tab4 - tab1) = {d4_full:+.4f}, 95% CI [{lo4:+.4f}, {hi4:+.4f}]")
+
     # --- 3. label stability across the 32 cells vs the adopted cell
     matrices = {
         "fallback_off": arbitrate._load_matrix(FEATURES_OFF, BW_FEATURE_NAMES),

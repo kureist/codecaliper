@@ -30,7 +30,19 @@ javaparser, as written, other entry points:
   block entry (brace-wrapped)      clean=  26/100
   any entry (cu|classbody|block)   clean=  29/100
 reference, tree-sitter-java 0.23.5 (the instrument): as written 27, scaffold 29, brace-balanced 84, balanced+scaffold 94
+snippet-level agreement (the same snippets, not only the same counts):
+  javac scaffold-allowed set == tree-sitter as-written set: True (27 shared of 27)
+  javaparser scaffold-allowed set == tree-sitter scaffold set: True (29 shared of 29)
+  javaparser any-entry set == tree-sitter scaffold set: True (29 shared of 29)
+  the scaffold's gain over tree-sitter as written: [4, 7]; javaparser scaffold over javac scaffold: [4, 7]
 ```
+
+The last block checks agreement snippet by snippet: the front ends agree on
+the SAME snippets, not merely on counts. javac's 27 scaffolded snippets are
+exactly tree-sitter's 27 as written; JavaParser's 29, under the scaffold or
+its lenient entry points, are exactly tree-sitter's 29 with the scaffold; and
+the two the scaffold adds are snippets 4 and 7 for both, each a constructor
+(`Grantee(...)` and `Date(int)`).
 
 ## Reading it
 

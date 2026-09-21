@@ -82,12 +82,16 @@ own), and this project treats them accordingly:
 
 - fetched at run time into the gitignored `cache/`, never committed, never redistributed. Not one
   byte of either corpus enters the tracked tree;
-- only aggregate and derived results are published, specifically the cross-corpus parse rates
-  recorded in [`validation/breadth/results.txt`](validation/breadth/results.txt);
+- only aggregate and derived results are published: for both corpora, the cross-corpus parse
+  rates recorded in [`validation/breadth/results.txt`](validation/breadth/results.txt); for the
+  Scalabrino corpus also the score, verdict and rating-correlation aggregates recorded in
+  [`validation/audit/`](validation/audit/README.md) (`policy_corner_results.txt` and
+  `indentation_sweep_results.txt`);
 - nothing here should be read as a claim that either corpus may be redistributed.
 
-That is why `validation/breadth/` needs a network fetch and always will, while the Buse-Weimer lane
-does not. Any prose implying that this project as a whole reproduces offline is wrong.
+That is why `validation/breadth/` and those two audit probes need a network fetch and always will,
+while the Buse-Weimer lane does not. Any prose implying that this project as a whole reproduces
+offline is wrong.
 
 Their citations:
 

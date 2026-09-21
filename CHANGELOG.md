@@ -19,6 +19,17 @@ three versions, not one:
 - package 0.2.3.dev0 · spec 1.2.1 · grammars: tree-sitter-python 0.25.0,
   tree-sitter-java 0.23.5, tree-sitter-go 0.25.0 (binding tree-sitter 0.26.0)
 - The instrument is unchanged; everything below is validation-lane work.
+- Six validation additions, each a small extension of an existing lane whose
+  recorded lines stay byte-identical: the Buse-Weimer lane's tab-width sweep of
+  the indentation features, re-run on the Scalabrino corpus against its own
+  evaluator rows (`validation/audit/indentation_sweep.py`, aggregates only);
+  the paired four-versus-one-column contrast beside the eight-versus-one one
+  (`uncertainty_probes.py`); snippet-level identity checks between the three
+  front ends (`crossparser/run_crossparser.py`); where the verdict flips fall
+  relative to the cut (`audit/policy_corner_rerun.py`); the 84-snippet size
+  control (`drop_policy_probe.py`); and the cached artifacts' own build dates
+  (`validation/audit/artifact_dates.py`). The permission records now list the
+  audit lane's Scalabrino aggregates beside the breadth lane's parse rates.
 - Corrects a statement shipped in 0.2.2. `validation/audit/README.md` recorded
   that the 2010 extractor counts max char occurrences "every character
   including whitespace (same as the instrument)". It does not:
@@ -91,8 +102,7 @@ three versions, not one:
 
 - package 0.2.2 · spec 1.2.1 · grammars: tree-sitter-python 0.25.0,
   tree-sitter-java 0.23.5, tree-sitter-go 0.25.0 (binding tree-sitter 0.26.0)
-- The instrument itself is unchanged; everything below is validation-lane
-  work prompted by an external blind-review pass over the ICPC draft.
+- The instrument itself is unchanged; everything below is validation-lane work.
 - `validation/breadth/` now also measures the 119 Python snippets of the Dorn
   corpus under the Python grammar (new `Dorn-Python` row: 106/119 clean parse;
   the three pre-existing rows reproduce byte-identically). The Dorn-Java row

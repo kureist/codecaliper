@@ -36,6 +36,7 @@ avg_indentation rho at tab=2: -0.0992 95% CI [-0.3051, +0.1227]  Figure 9 agreem
 avg_indentation rho at tab=4: -0.2568 95% CI [-0.4527, -0.0342]  Figure 9 agreement 21/24
 avg_indentation rho at tab=8: -0.2299 95% CI [-0.4196, -0.0264]  Figure 9 agreement 21/24
 paired tab contrast, avg_indentation, fallback_on: delta rho (tab8 - tab1) = -0.2306, 95% CI [-0.5225, +0.0497]
+paired tab contrast, avg_indentation, fallback_on: delta rho (tab4 - tab1) = -0.2576, 95% CI [-0.4796, -0.0335]
 label flips vs adopted cell over 32 cells: max = 16, cells with any flip = 36/32
   fallback_off/tab=0/V0_current          16
   fallback_off/tab=0/V1_minimal          16

@@ -163,6 +163,8 @@ score changes when leading tabs are expanded to eight spaces: 151 of 200 methods
   binary classification at cut 0.4: 20 of 200 methods change class (9 to readable, 11 to unreadable)
   binary classification at cut 0.5: 11 of 200 methods change class (4 to readable, 7 to unreadable)
   binary classification at cut 0.6: 14 of 200 methods change class (3 to readable, 11 to unreadable)
+  |delta| under eight columns: median 0.0302, 90th percentile 0.1326
+  eight columns, cut 0.5: 8 of the 11 flips lie within 0.10 of the cut, where 44 of 200 scores sit
 ```
 
 So the whitespace convention is not only a within-instrument sensitivity: on a
@@ -171,6 +173,57 @@ every one of the 151 tab-indented methods and flips the readable/unreadable
 verdict for 11 of the 200 at the conventional cut (20 and 14 at the neighbouring
 cuts). A study consuming this tool's score as a variable inherits that movement,
 and no publication of the tool states which convention its features assume.
+
+## Indentation against ratings on the Scalabrino corpus (`indentation_sweep_results.txt`)
+
+`indentation_sweep.py` runs the Buse-Weimer lane's tab-width sweep of the
+indentation features (`uncertainty_probes.py`) on a second corpus that ships
+ratings: the 200 Scalabrino et al. methods against the mean of the archive's
+nine evaluator rows, loaded by the same `_mean_ratings()` the corner re-run
+uses. Counting is the plain definition (leading whitespace over all
+lines, a tab expanded to the width under test) on the raw method text. The
+archive is fetched at run time and never tracked; aggregates only are printed.
+
+```
+corpus: 200 rated methods of the Scalabrino et al. archive, 151 tab-indented; rating = mean of the evaluator rows (Dataset/scores.csv), the vector the corner re-run also uses
+Spearman against the mean rating, by columns per tab (raw text, no scaffold, all lines):
+  tab=0: avg_indentation +0.0332   max_indentation +0.0016   <- the tool's own reading (tabs count nothing)
+  tab=1: avg_indentation -0.0792   max_indentation -0.1273
+  tab=2: avg_indentation -0.1213   max_indentation -0.1831
+  tab=4: avg_indentation -0.2333   max_indentation -0.2808
+  tab=8: avg_indentation -0.2466   max_indentation -0.3280
+  paired avg_indentation: rho(tab=8) - rho(tab=0) = -0.2798, 95% CI [-0.4979, -0.0410] (2000 resamples, seed 0)
+  paired avg_indentation: rho(tab=4) - rho(tab=0) = -0.2665, 95% CI [-0.4139, -0.1156] (2000 resamples, seed 0)
+  paired avg_indentation: rho(tab=8) - rho(tab=4) = -0.0133, 95% CI [-0.1260, +0.1013] (2000 resamples, seed 0)
+  paired max_indentation: rho(tab=8) - rho(tab=0) = -0.3297, 95% CI [-0.5240, -0.1203] (2000 resamples, seed 0)
+  paired max_indentation: rho(tab=4) - rho(tab=0) = -0.2824, 95% CI [-0.4348, -0.1352] (2000 resamples, seed 0)
+  paired max_indentation: rho(tab=8) - rho(tab=4) = -0.0472, 95% CI [-0.1332, +0.0425] (2000 resamples, seed 0)
+```
+
+The zero-column reading, which is the tool's own, gives a null correlation;
+from one column on the sign is the published negative, determinate against
+the zero-column reading at four and eight columns, and four and eight are
+indistinguishable from each other. On the Buse-Weimer snippets the tab width
+likewise decides the sign (`uncertainty_results.txt`), so the dependence recurs
+on two corpora. The Dorn archive also ships ratings and is not swept here.
+
+## Artifact dates (`artifact_dates.txt`)
+
+`artifact_dates.py` reads the zip entry timestamps of the three cached jars.
+A Fat-Jar build stamps every entry at build time; the applet's source jar
+carries per-file dates.
+
+```
+readability-original.jar (the 2010 executable the replication page serves): 2816 entries, earliest 2010-12-01 15:01, latest 2010-12-01 15:01
+readability-applet.jar (the applet build carrying the detector source): 303 entries, earliest 2009-06-24 14:35, latest 2009-06-26 15:16
+  raykernel/apps/readability/detectors/MaxLineValueDetector.java: dated 2009-06-24 14:38; the array-concatenation defect is at line 23
+rsm.jar (the Scalabrino et al. extractor): 18777 entries, earliest 2010-05-04 12:55, latest 2021-05-13 10:49
+```
+
+The defective detector source is dated 2009-06-24; the per-feature singleton
+analysis behind the 2010 paper's Figure 9 was first published in the ISSTA 2008
+conference version, so the published feature powers predate the earliest
+artifact carrying the defect.
 
 ## Reproducing
 
@@ -181,6 +234,8 @@ python validation/audit/divergence_diagnosis.py   # pure stdlib, tracked pins on
 python validation/bw_faithfulness/fetch.py --all # the Scalabrino corpus into its gitignored cache
 python validation/audit/original_extractor_rerun.py # needs a JDK; runs the 2010 tool itself
 python validation/audit/policy_corner_rerun.py   # needs a JRE; ~10 JVM launches
+python validation/audit/indentation_sweep.py     # needs the Scalabrino corpus fetched above
+python validation/audit/artifact_dates.py        # reads the jars fetch.py cached
 ```
 
 The source-audit findings are checkable by unzipping `cache/readability-applet.jar`

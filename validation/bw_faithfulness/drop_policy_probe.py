@@ -123,14 +123,18 @@ def main() -> int:
               f"{stats.mean(accs):.3f}  AUC {float(roc_auc_score(y, dec)):.3f}")
         if disagree:
             print(f"      diverging: {', '.join(sorted(disagree))}")
+        # Rounded as printed, so the size control below compares the draws
+        # against the number the report states, not against a longer float.
+        return round(stats.mean(accs), 3)
 
     print("reproduction under each corpus a drop policy would leave behind "
           "(adopted operationalization, tab=8, full lexical stream):")
+    observed_acc: dict[str, float] = {}
     for label, subset in (("full (measure anyway)", ids),
                           ("as written", as_written),
                           ("scaffold allowed", scaffold),
                           ("brace balanced", balanced)):
-        report(label, subset)
+        observed_acc[label] = report(label, subset)
 
     # --- power control: how much of the small-corpus movement is just size?
     # Draw random subsamples of the same size from the full 100. This is an
@@ -249,8 +253,14 @@ def main() -> int:
         return (a, signs_of(idx) if a is not None else 0)
 
     rng = random.Random(0)
-    for size, observed, label in ((len(as_written), 0.717, "as written"),
-                                  (len(scaffold), 0.733, "scaffold allowed")):
+    # The brace-balanced corpus gets the same control, appended after the two
+    # original sizes so their draws consume the generator in the same order and
+    # their recorded lines stay byte-identical.
+    for size, observed, label in ((len(as_written), observed_acc["as written"], "as written"),
+                                  (len(scaffold), observed_acc["scaffold allowed"],
+                                   "scaffold allowed"),
+                                  (len(balanced), observed_acc["brace balanced"],
+                                   "brace balanced")):
         draws = []
         sign_draws = []
         while len(draws) < SUBSAMPLE_DRAWS:

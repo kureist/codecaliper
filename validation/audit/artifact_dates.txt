@@ -1,0 +1,4 @@
+readability-original.jar (the 2010 executable the replication page serves): 2816 entries, earliest 2010-12-01 15:01, latest 2010-12-01 15:01
+readability-applet.jar (the applet build carrying the detector source): 303 entries, earliest 2009-06-24 14:35, latest 2009-06-26 15:16
+  raykernel/apps/readability/detectors/MaxLineValueDetector.java: dated 2009-06-24 14:38; the array-concatenation defect is at line 23
+rsm.jar (the Scalabrino et al. extractor): 18777 entries, earliest 2010-05-04 12:55, latest 2021-05-13 10:49

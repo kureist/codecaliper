@@ -209,6 +209,23 @@ def main() -> int:
                   f"change class ({up} to readable, "
                   f"{len(flips) - up} to unreadable)")
 
+    # Are the flips a property of the convention, or of where the cut falls?
+    # Both: the convention moves most scores by a few hundredths, so a cut
+    # through a dense part of the score distribution converts those small moves
+    # into label flips, and the flip count tracks the density of scores near
+    # the cut.
+    abs_d = sorted(abs(b[f] - a[f]) for f in scored)
+    print(f"  |delta| under eight columns: median {abs_d[len(abs_d) // 2]:.4f}, "
+          f"90th percentile {abs_d[int(0.9 * len(abs_d))]:.4f}")
+    for cut in CUTS:
+        flips = [f for f in scored if (a[f] >= cut) != (b[f] >= cut)]
+        for band in (0.05, 0.10):
+            near_all = sum(1 for f in scored if abs(a[f] - cut) < band)
+            near_flip = sum(1 for f in flips if abs(a[f] - cut) < band)
+            print(f"  eight columns, cut {cut}: {near_flip} of the {len(flips)} flips "
+                  f"lie within {band:.2f} of the cut, where {near_all} of "
+                  f"{len(scored)} scores sit")
+
     # Does the convention reach the tool's agreement with its own corpus's human
     # ratings, or only its output? The archive ships the per-evaluator ratings
     # alongside the snippets, so the association is measurable at each corner.
