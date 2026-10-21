@@ -55,9 +55,8 @@ site/
 # business in this tree either.
 .oracles/
 
-# MSR paper sources: submission material, kept local until publication
-# (pyproject.toml excludes it from the sdist and release.yml asserts that,
-# as defense in depth should this rule ever be dropped)
+# pyproject.toml also excludes paper/ from the sdist and release.yml asserts
+# that, as defense in depth should this rule ever be dropped.
 paper/
 
 # Editors / OS / agent tooling

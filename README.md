@@ -214,8 +214,6 @@ cross-corpus breadth lane (`validation/breadth/`) needs a network fetch and
 always will. The terms, per corpus, are in
 [`PERMISSIONS.md`](PERMISSIONS.md).
 
-Next: the MSR Data and Tool Showcase paper (ARCHITECTURE.md §16).
-
 ## Development
 
 ```bash

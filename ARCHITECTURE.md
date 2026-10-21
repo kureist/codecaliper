@@ -17,8 +17,8 @@
 > This document synthesizes a three-way architecture study (instrument-purist, API/extensibility,
 > validation-first lenses) judged against the project charter. The charter itself is deliberately
 > not in the repo, so this file replaced it. Charter section references (§5 design, §6 validation,
-> §7 publication checklist, §8 risks) appear throughout; §0 restates every fixed decision they
-> pinned, and §14 records what was chosen over what.
+> §8 risks) appear throughout; §0 restates every fixed decision they pinned, and §14 records what
+> was chosen over what.
 
 ## 0. Fixed decisions (from the charter; do not relitigate)
 
@@ -536,9 +536,10 @@ text)? Is the `.` in a qualified name a "period"? **Ambiguous rulings are resolv
 the §8.3 faithfulness pipeline**: the interpretation that best reproduces the paper is frozen into
 the spec, with the experiment recorded in the ruling.
 
-*Anti-circularity note*, stated in the spec and in the paper: these rulings are selected on the same
-100-snippet dataset whose reproduction accuracy we then report. The reproduction is evidence of
-faithful operationalization, not an independent validation of BW's construct.
+*Anti-circularity note*, stated in the spec and in the faithfulness report: these rulings are
+selected on the same 100-snippet dataset whose reproduction accuracy we then report. The
+reproduction is evidence of faithful operationalization, not an independent validation of BW's
+construct.
 
 ### 7.2 Output shape and granularity
 
@@ -663,7 +664,7 @@ is a *spec source*, with cognitive_complexity as the Sonar-lineage witness.
 
 ### 8.3 BW faithfulness reproduction (§6.3, the make-or-break)
 
-`validation/bw_faithfulness/` is reviewer-rerunnable, and it is **self-contained**: it runs offline,
+`validation/bw_faithfulness/` is rerunnable by anyone, and it is **self-contained**: it runs offline,
 from the git tree alone.
 
 That is possible because an author of the dataset (W. Weimer) granted redistribution by e-mail on
@@ -811,8 +812,7 @@ than a guess. Diagnostics go to stderr, data to stdout; exit codes 0/1/2.
   snippet transclusion of the repository's `CONTRIBUTING.md`, so how to add a ruling, a corpus case
   or a language is hosted on the site without a checklist existing in two versions. `ARCHITECTURE.md`
   is the file that is linked rather than re-hosted, because it is written for someone with the tree
-  in front of them. Paper sources live in a local, gitignored `paper/` directory: submission material
-  stays out of the public repo until publication.
+  in front of them.
 
 ## 12. Reuse from Spaghetti Architect (NOTICE-credited, DOI 10.5281/zenodo.21033174)
 
@@ -905,8 +905,8 @@ is reversible without touching the core.
 5. `Session` caching drops to plain `measure()`. **Not cut.** `Session` ships, and
    `test_perf_smoke.py` asserts both the parser reuse and the throughput floor.
 6. Never cut: the consistency corpus, the spec-drift gate, the BW faithfulness pipeline, the
-   honest-SKIP differential harness. These are the paper's evidence base, and all four are in the
-   tree.
+   honest-SKIP differential harness. These are the instrument's evidence base, and all four are in
+   the tree.
 
 ## 16. Milestones (from the charter, sharpened)
 
@@ -919,6 +919,3 @@ is reversible without touching the core.
 - **W8**: **done.** v0.1.0 was tagged on 2026-07-12, PyPI serves `codecaliper 0.1.0`, the GitHub
   Release is published, and the Zenodo concept DOI 10.5281/zenodo.21312527 resolves (the v0.1.0
   version DOI is 10.5281/zenodo.21312528).
-  Remaining: the tool-showcase paper (acmart sigconf, 4+1 pages) for the MSR Data and Tool Showcase.
-  There is no screencast, because the MSR Data and Tool Showcase CFP has no video or
-  demo-recording requirement. That is an ICPC Tool-Demo convention, not this venue's.
