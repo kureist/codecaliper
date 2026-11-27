@@ -34,8 +34,8 @@ abstract: >-
   reproduction against the original Buse-Weimer dataset.
 type: software
 license: "MIT"
-repository-code: "https://github.com/KurathSec/codecaliper"
-url: "https://kurathsec.github.io/codecaliper/"
+repository-code: "https://github.com/kureist/codecaliper"
+url: "https://kureist.github.io/codecaliper/"
 identifiers:
   - type: doi
     value: "10.5281/zenodo.21312527"

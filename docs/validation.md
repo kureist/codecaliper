@@ -7,7 +7,7 @@ by transclusion, so the site cannot drift from the artifacts it describes.
 ## What reruns offline, and what does not
 
 **The Buse-Weimer lane is self-contained.** Its raw inputs are tracked in
-[`validation/bw_faithfulness/derived/arbitration_inputs/`](https://github.com/KurathSec/codecaliper/tree/main/validation/bw_faithfulness/derived/arbitration_inputs):
+[`validation/bw_faithfulness/derived/arbitration_inputs/`](https://github.com/kureist/codecaliper/tree/main/validation/bw_faithfulness/derived/arbitration_inputs):
 the 100 rated Java snippets, `oracle.csv` (the raw 121-row annotator matrix),
 and `scores.csv` (the per-snippet means derived from it). `extract.py`,
 `train.py`, `arbitrate.py` and `report.py` read those pins as their primary
@@ -23,14 +23,14 @@ Those inputs can be tracked because an author of the dataset gave written
 permission to redistribute the snippets and annotator scores and to publish
 data derived from them. What was asked, what was answered, and how the message
 can be checked are in
-[`PERMISSIONS.md`](https://github.com/KurathSec/codecaliper/blob/main/PERMISSIONS.md).
+[`PERMISSIONS.md`](https://github.com/kureist/codecaliper/blob/main/PERMISSIONS.md).
 
 **The cross-corpus lane is not self-contained and never will be.** The
 Scalabrino et al. (2018) and Dorn (2012) corpora carry no permission of any
 kind, so not one byte of either is tracked, now or later. They are fetched at run
 time into the gitignored `cache/`, measured there, and only aggregates are
 published. Reproducing
-[`validation/breadth/`](https://github.com/KurathSec/codecaliper/tree/main/validation/breadth)
+[`validation/breadth/`](https://github.com/kureist/codecaliper/tree/main/validation/breadth)
 therefore needs a network fetch (`fetch.py --all`), even though the Buse-Weimer
 lane never does. Nothing on this page should be read as "the whole project
 regenerates from the git tree alone".
@@ -88,7 +88,7 @@ fragments of larger units, not broken code.
 These aggregates are spec- and grammar-dependent: they hold for the versions
 `codecaliper env` prints in this tree, and a change that moves them is a spec
 event. Reproducing them needs the archives, hence a network fetch. See
-[`validation/breadth/README.md`](https://github.com/KurathSec/codecaliper/blob/main/validation/breadth/README.md).
+[`validation/breadth/README.md`](https://github.com/kureist/codecaliper/blob/main/validation/breadth/README.md).
 
 ### Why this page says 73 and the Quickstart says 71
 

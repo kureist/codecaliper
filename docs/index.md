@@ -61,7 +61,7 @@ For research use, add the exact calibrated grammar pins. A deviating grammar
 still runs, but then every report it produces is labelled `validated: false`:
 
 ```bash
-pip install codecaliper -c https://raw.githubusercontent.com/KurathSec/codecaliper/main/constraints/ci.txt
+pip install codecaliper -c https://raw.githubusercontent.com/kureist/codecaliper/main/constraints/ci.txt
 ```
 
 Then head to the [Quickstart](quickstart.md). What the numbers refuse to claim
@@ -73,4 +73,4 @@ on [Contributing](contributing.md).
 `codecaliper cite` prints a methods-section template naming the package, spec
 and grammar versions your numbers were produced under. Report all three: a
 package version alone does not pin a value. Citation metadata lives in
-[`CITATION.cff`](https://github.com/KurathSec/codecaliper/blob/main/CITATION.cff).
+[`CITATION.cff`](https://github.com/kureist/codecaliper/blob/main/CITATION.cff).

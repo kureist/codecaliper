@@ -11,7 +11,7 @@ tree-sitter grammars, so parser-reachable memory-safety issues are in scope.
 
 Please report vulnerabilities privately. Do not open a public issue.
 
-- preferred: [GitHub private vulnerability reporting](https://github.com/KurathSec/codecaliper/security/advisories/new)
+- preferred: [GitHub private vulnerability reporting](https://github.com/kureist/codecaliper/security/advisories/new)
 - or by email: kurathandrew@gmail.com
 
 You will receive an acknowledgement within a few days. Please include a

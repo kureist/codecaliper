@@ -57,10 +57,10 @@ docs = ["mkdocs>=1.6", "mkdocs-material>=9.6", "mkdocstrings[python]>=1.0"]
 codecaliper = "codecaliper.cli:main"
 
 [project.urls]
-Repository = "https://github.com/KurathSec/codecaliper"
-Documentation = "https://kurathsec.github.io/codecaliper/"
-Issues = "https://github.com/KurathSec/codecaliper/issues"
-Changelog = "https://github.com/KurathSec/codecaliper/blob/main/CHANGELOG.md"
+Repository = "https://github.com/kureist/codecaliper"
+Documentation = "https://kureist.github.io/codecaliper/"
+Issues = "https://github.com/kureist/codecaliper/issues"
+Changelog = "https://github.com/kureist/codecaliper/blob/main/CHANGELOG.md"
 
 [tool.hatch.version]
 path = "src/codecaliper/_version.py"

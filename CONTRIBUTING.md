@@ -195,7 +195,7 @@ new language gets no scaffolding. If yours needs it, that is a ruling, not an
   exception, permitted by a grant from an author of that dataset; every other
   corpus is fetched into the gitignored `cache/` at run time. The terms, per
   corpus, are in
-  [`PERMISSIONS.md`](https://github.com/KurathSec/codecaliper/blob/main/PERMISSIONS.md).
+  [`PERMISSIONS.md`](https://github.com/kureist/codecaliper/blob/main/PERMISSIONS.md).
   Read it before you add a byte of data to the tree.
 
 ## Releases
@@ -210,5 +210,5 @@ The pipeline is `.github/workflows/release.yml`: a tag triggers the gate and the
 build in parallel, then PyPI trusted publishing, then the GitHub Release, whose
 publication fires the Zenodo archival webhook. The procedure, the ordering
 constraint on the validation reports, and the one-time account setup are in
-[`RELEASING.md`](https://github.com/KurathSec/codecaliper/blob/main/RELEASING.md).
+[`RELEASING.md`](https://github.com/kureist/codecaliper/blob/main/RELEASING.md).
 Follow it rather than improvising: several steps are not idempotent.

@@ -215,7 +215,7 @@ def _cmd_cite(argv: list[str]) -> int:
             "complexity measurement instrument},\n"
             f"  version = {{{__version__}}},\n"
             f"  note    = {{spec {spec_version()}; grammars: {', '.join(grammars)}}},\n"
-            "  url     = {https://github.com/KurathSec/codecaliper}\n"
+            "  url     = {https://github.com/kureist/codecaliper}\n"
             "}"
         )
     else:

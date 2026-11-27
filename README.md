@@ -1,11 +1,11 @@
 # codecaliper
 
-[![ci](https://github.com/KurathSec/codecaliper/actions/workflows/ci.yml/badge.svg)](https://github.com/KurathSec/codecaliper/actions/workflows/ci.yml)
-[![docs](https://github.com/KurathSec/codecaliper/actions/workflows/docs.yml/badge.svg)](https://kurathsec.github.io/codecaliper/)
+[![ci](https://github.com/kureist/codecaliper/actions/workflows/ci.yml/badge.svg)](https://github.com/kureist/codecaliper/actions/workflows/ci.yml)
+[![docs](https://github.com/kureist/codecaliper/actions/workflows/docs.yml/badge.svg)](https://kureist.github.io/codecaliper/)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21312527.svg)](https://doi.org/10.5281/zenodo.21312527)
 
 A code-readability and complexity **measurement instrument** for Python, Java, and Go,
-built on tree-sitter. Documentation: <https://kurathsec.github.io/codecaliper/>
+built on tree-sitter. Documentation: <https://kureist.github.io/codecaliper/>
 
 Every number codecaliper emits is *traceable* and *reproducible*: traceable to a
 versioned metric-to-syntax specification, to the exact rulings that fired, and to
@@ -119,7 +119,7 @@ under it is stamped `grammar.validated: false` and carries an
 `unvalidated-grammar` diagnostic:
 
 ```bash
-pip install codecaliper -c https://raw.githubusercontent.com/KurathSec/codecaliper/main/constraints/ci.txt
+pip install codecaliper -c https://raw.githubusercontent.com/kureist/codecaliper/main/constraints/ci.txt
 pip install -e . -c constraints/ci.txt   # from a checkout
 ```
 
@@ -168,7 +168,7 @@ print(dict(zip(vec.names, vec.values)), vec.extrapolated)
 
 Package **0.2.2** is released: on
 [PyPI](https://pypi.org/project/codecaliper/), tagged
-[v0.2.2](https://github.com/KurathSec/codecaliper/releases/tag/v0.2.2), archived
+[v0.2.2](https://github.com/kureist/codecaliper/releases/tag/v0.2.2), archived
 at Zenodo. The badge above is the concept DOI, which always resolves to the
 latest version; every released version also has its own DOI, listed on that
 Zenodo record. It ships spec **1.2.1**: the instrument is unchanged since
@@ -231,7 +231,7 @@ ruling, supersede one, or add a language.
 ## Citing
 
 Citation metadata lives in
-[`CITATION.cff`](https://github.com/KurathSec/codecaliper/blob/main/CITATION.cff),
+[`CITATION.cff`](https://github.com/kureist/codecaliper/blob/main/CITATION.cff),
 which is what GitHub's "Cite this repository" box and Zenodo both read.
 `codecaliper cite` prints a methods-section template naming the package
 version, the spec version and the grammar versions your numbers were produced

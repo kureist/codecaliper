@@ -13,7 +13,7 @@ and the Zenodo DOI. The pipeline itself is `.github/workflows/release.yml`.
    | field | value |
    |---|---|
    | PyPI project name | `codecaliper` |
-   | Owner | `KurathSec` |
+   | Owner | `kureist` |
    | Repository name | `codecaliper` |
    | Workflow name | `release.yml` |
    | Environment name | `pypi` |
@@ -24,7 +24,8 @@ and the Zenodo DOI. The pipeline itself is `.github/workflows/release.yml`.
    environment → `pypi`*. Optional but recommended: add yourself as a required
    reviewer, so the publish job pauses for a manual approval.
 3. **Zenodo webhook.** On <https://zenodo.org> → *GitHub* → flip the toggle for
-   `KurathSec/codecaliper` (done 2026-07-05). Zenodo archives every *published*
+   `kureist/codecaliper` (done 2026-07-05, under the old account name
+   `KurathSec`; re-check after the 2026-11-27 rename). Zenodo archives every *published*
    GitHub Release, and the first one mints both a version DOI and the permanent
    concept DOI.
 4. **GitHub Pages** (the docs site, `.github/workflows/docs.yml`): *Repo →
